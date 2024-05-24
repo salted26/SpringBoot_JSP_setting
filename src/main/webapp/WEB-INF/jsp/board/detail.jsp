@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -46,6 +47,12 @@
                       placeholder="내용을 입력해주세요." name="content" rows="8"><c:out value="${board.content}" />
             </textarea>
         </div>
+        <div class="col-md-2">
+            <label for="file" class="form-label">FILE</label>
+        </div>
+        <div class="col-md-10">
+            <span id="file" class="detail_value"><a href="D:/Dev/workspaces/board_ver.jsp/src/main/images/${board.file_name}" class="link"><c:out value="${board.file_name}" /></a></span>
+        </div>
         <div class="button_area">
             <button type="button" class="btn btn-light" onclick="location.href='/board/modify/${board.bno}'">수정</button>
             <button type="button" class="btn btn-light" onclick="location.href='/board'">목록</button>
@@ -61,11 +68,17 @@
     form > div{
         text-align: center;
     }
-    .detail_value, textarea {
+    .detail_value{
         display: flex;
     }
     .button_area {
         text-align: right;
+    }
+    #content {
+        border: none;
+    }
+    #content:focus {
+        box-shadow: none !important;
     }
 </style>
 </html>

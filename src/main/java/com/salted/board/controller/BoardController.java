@@ -1,8 +1,12 @@
 package com.salted.board.controller;
 
 import com.salted.board.entity.BoardEntity;
+import com.salted.board.entity.SearchEntity;
 import com.salted.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +28,10 @@ public class BoardController {
     // DTO - Entity
 
     @GetMapping("/board")
-    public String board(Model model) {
+    public String board(Model model, @PageableDefault(page=0, size=5, sort="title",
+            direction = Sort.Direction.DESC)Pageable pageable,
+                        @RequestParam String searchKeyword) {
+        System.out.println("pageable-----------------------" + pageable);
         List<BoardEntity> list = boardService.selectAll();
         model.addAttribute("list", list);
         return "board/list";
@@ -93,12 +100,11 @@ public class BoardController {
         return "redirect:/board";
     }
 
-
     // 파일 업로드
     private BoardEntity uploadFile(MultipartFile file, BoardEntity boardEntity) {
         LocalDate localDate = LocalDate.now();
         String fileName = localDate + file.getOriginalFilename();
-        String filePath = "D:\\Dev\\workspaces\\board_ver.jsp\\images\\"+fileName;
+        String filePath = "src\\main\\images\\"+fileName;
 
         File dest = new File(filePath);
         try{
