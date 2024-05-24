@@ -38,6 +38,13 @@ public class BoardEntity {
     @ColumnDefault("1")
     private int counts;
 
+    @Column(columnDefinition = "TEXT")
+    @ColumnDefault("N")
+    private String fileYN;
+
+    @Column(columnDefinition = "TEXT")
+    private String file_name;
+
     @CreatedDate
     private LocalDateTime created_dt = LocalDateTime.now();
 

@@ -6,7 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -25,9 +30,9 @@ public class BoardController {
         return "board/list";
     }
 
-    @GetMapping("/bard/list")
+    @GetMapping("/board/list")
     public String boardList() {
-        return "board/list";
+        return "redirect:/board";
     }
 
     @GetMapping("/board/detail/{bno}")
@@ -50,8 +55,15 @@ public class BoardController {
     }
 
     @PostMapping("/board/write")
-    public String boardWritePost(@ModelAttribute BoardEntity boardEntity) {
+    public String boardWritePost(@ModelAttribute BoardEntity boardEntity,
+                                 @RequestParam MultipartFile file) {
+
+        if(file !=null && !file.equals("")) {
+            uploadFile(file, boardEntity);
+        }
+
         boardService.write(boardEntity);
+
         return "redirect:/board";
     }
 
@@ -64,9 +76,12 @@ public class BoardController {
 
     @PostMapping("/board/modify")
     public String boardModifyPost(@ModelAttribute BoardEntity boardEntity,
-                                  @RequestParam("bno") Long bno) {
+                                  @RequestParam("bno") Long bno, MultipartFile file) {
         BoardEntity oriBoardEntity = boardService.selectOne(boardEntity.getBno());
         if (boardEntity.getBno() == oriBoardEntity.getBno()) {
+            if( oriBoardEntity.getFile_name() != file.getOriginalFilename() ) {
+                uploadFile(file, boardEntity);
+            }
             boardService.modify(boardEntity);
         }
         return "redirect:/board/detail/"+bno;
@@ -76,6 +91,25 @@ public class BoardController {
     public String boardDelete(@PathVariable Long bno) {
         boardService.delete(bno);
         return "redirect:/board";
+    }
+
+
+    // 파일 업로드
+    private BoardEntity uploadFile(MultipartFile file, BoardEntity boardEntity) {
+        LocalDate localDate = LocalDate.now();
+        String fileName = localDate + file.getOriginalFilename();
+        String filePath = "D:\\Dev\\workspaces\\board_ver.jsp\\images\\"+fileName;
+
+        File dest = new File(filePath);
+        try{
+            Files.copy(file.getInputStream(), dest.toPath());
+            boardEntity.setFile_name(fileName);
+            boardEntity.setFileYN("Y");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return boardEntity;
     }
 
 }

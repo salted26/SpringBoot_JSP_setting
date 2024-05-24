@@ -18,7 +18,7 @@
 <body>
 <jsp:include page="../module/header.jsp" />
 <div class="wrapper">
-    <form class="row g-3" action="/board/modify" method="post">
+    <form class="row g-3" action="/board/modify" method="post" enctype="multipart/form-data">
         <input type="hidden" value="${board.bno}" name="bno" />
         <div class="col-md-2">
             <label for="board_type" class="form-label">CATEGORY</label>
@@ -50,7 +50,12 @@
             <textarea type="text" class="form-control" id="content"
                       placeholder="내용을 입력해주세요." name="content" rows="5"><c:out value="${board.content}" /></textarea>
         </div>
-
+        <div class="col-md-2">
+            <label for="file" class="form-label">FILE</label>
+        </div>
+        <div class="col-md-10">
+            <input type="file" id="file" name="file"/>
+        </div>
         <div class="button_area">
             <button type="submit" class="btn btn-outline-success">수정</button>
         </div>

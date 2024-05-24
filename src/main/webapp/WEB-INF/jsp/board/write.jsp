@@ -17,7 +17,7 @@
 <body>
 <jsp:include page="../module/header.jsp" />
 <div class="wrapper">
-    <form class="row g-3" action="/board/write" method="post">
+    <form class="row g-3" action="/board/write" method="post" enctype="multipart/form-data">
         <div class="col-md-2">
             <label for="board_type" class="form-label">CATEGORY</label>
         </div>
@@ -48,7 +48,12 @@
             <textarea type="text" class="form-control" id="content"
                       placeholder="내용을 입력해주세요." name="content" rows="8"></textarea>
         </div>
-
+        <div class="col-md-2">
+            <label for="file" class="form-label">FILE</label>
+        </div>
+        <div class="col-md-10">
+            <input type="file" id="file" name="file" />
+        </div>
         <div class="button_area">
             <button type="submit" class="btn btn-outline-success">등록</button>
         </div>
@@ -63,7 +68,7 @@
     form > div{
         text-align: center;
     }
-    .button_area {
+    .button_area{
         text-align: right;
     }
 </style>
