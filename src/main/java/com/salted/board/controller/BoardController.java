@@ -19,9 +19,14 @@ public class BoardController {
     // DTO - Entity
 
     @GetMapping("/board")
-    public String boardList(Model model) {
+    public String board(Model model) {
         List<BoardEntity> list = boardService.selectAll();
         model.addAttribute("list", list);
+        return "board/list";
+    }
+
+    @GetMapping("/bard/list")
+    public String boardList() {
         return "board/list";
     }
 

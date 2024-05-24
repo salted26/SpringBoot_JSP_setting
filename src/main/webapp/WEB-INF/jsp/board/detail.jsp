@@ -16,7 +16,8 @@
     <title>Detail</title>
 </head>
 <body>
-<div class="container">
+<jsp:include page="../module/header.jsp" />
+<div class="wrapper">
     <form class="row g-3" >
         <input type="hidden" value="<c:out value='${board.bno}' />" name="bno" />
         <div class="col-md-2">
@@ -42,19 +43,19 @@
         </div>
         <div class="col-md-10">
             <textarea type="text" class="form-control" id="content" readonly
-                      placeholder="내용을 입력해주세요." name="content" rows="5"><c:out value="${board.content}" />
+                      placeholder="내용을 입력해주세요." name="content" rows="8"><c:out value="${board.content}" />
             </textarea>
         </div>
         <div class="button_area">
-            <button type="button" class="btn btn-outline-success" onclick="location.href='/board/modify/${board.bno}'">수정</button>
-            <button type="button" class="btn btn-outline-success" onclick="location.href='/board'">목록</button>
-            <button type="button" class="btn btn-outline-success" onclick="location.href='/board/delete/${board.bno}'">삭제</button>
+            <button type="button" class="btn btn-light" onclick="location.href='/board/modify/${board.bno}'">수정</button>
+            <button type="button" class="btn btn-light" onclick="location.href='/board'">목록</button>
+            <button type="button" class="btn btn-light" onclick="location.href='/board/delete/${board.bno}'">삭제</button>
         </div>
     </form>
 </div>
 </body>
 <style>
-    .container {
+    .wrapper {
         margin-top:50px;
     }
     form > div{

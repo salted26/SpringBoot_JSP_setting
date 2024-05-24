@@ -1,7 +1,49 @@
 body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.nav_container {
     width: 1500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container {
+    width: 1500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.index_img {
+    width: 1500px;
+    height: 500px;
+}
+
+.md-menu{
+    width: 1500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.md-menu > ul > li {
+    float:left;
+    display: flex;
+    margin-left : 50px;
+    height: 50px;
+    list-style-type: none;
+    align-items: center;
+    cursor: pointer;
 }
 
 textarea:focus {
     outline: none;
 }
+
