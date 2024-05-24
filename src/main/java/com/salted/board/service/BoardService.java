@@ -35,4 +35,8 @@ public class BoardService {
         boardRepository.deleteById(bno);
     }
 
+    public void count(BoardEntity boardEntity, Long bno) {
+
+
+    }
 }

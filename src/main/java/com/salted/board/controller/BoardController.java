@@ -27,7 +27,14 @@ public class BoardController {
 
     @GetMapping("/board/detail/{bno}")
     public String boardDetail(Model model, @PathVariable Long bno) {
+        // 게시글 조회
         BoardEntity boardEntity = boardService.selectOne(bno);
+
+        // 카운트 추가
+        int counts = boardEntity.getCounts()+1;
+        boardEntity.setCounts(counts);
+        boardService.modify(boardEntity);
+
         model.addAttribute("board", boardEntity);
         return "board/detail";
     }

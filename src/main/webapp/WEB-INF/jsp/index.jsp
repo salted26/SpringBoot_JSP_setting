@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="resources/static/css/common.css">
     <title>index</title>
 </head>
 <body>
